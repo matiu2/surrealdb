@@ -14,6 +14,7 @@ use surrealdb::Auth;
 use surrealdb::Session;
 
 pub async fn signin(session: &mut Session, vars: Object) -> Result<Value, Error> {
+	dbg!(&vars);
 	// Parse the specified variables
 	let ns = vars.get("NS").or_else(|| vars.get("ns"));
 	let db = vars.get("DB").or_else(|| vars.get("db"));
@@ -189,6 +190,7 @@ pub async fn db(
 		Ok(dl) => {
 			// Compute the hash and verify the password
 			let hash = PasswordHash::new(&dl.hash).unwrap();
+			dbg!(&hash);
 			// Attempt to verify the password using Argon2
 			match Argon2::default().verify_password(pass.as_ref(), &hash) {
 				Ok(_) => {

@@ -941,7 +941,9 @@ impl Transaction {
 		dl: &str,
 	) -> Result<DefineLoginStatement, Error> {
 		let key = crate::key::dl::new(ns, db, dl);
+		dbg!(&key);
 		let val = self.get(key).await?.ok_or(Error::DlNotFound)?;
+		dbg!(&val);
 		Ok(val.into())
 	}
 	/// Retrieve a specific database token definition.
